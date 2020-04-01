@@ -1,0 +1,17 @@
+<ion-content>
+  <h1>TravelStory</h1>
+  <ion-grid>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" >
+      <input formControlName="nombre" placeholder="Nombre de usuario o email" type="text">
+      <input formControlName="contraseña" placeholder="Contraseña" type="text">
+      <ion-button  type="submit" color="success">Iniciar sesión</ion-button>
+    </form>
+  </ion-grid>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar class="ion-text-center">
+    ¿No tienes cuenta?
+    <a href="">Regístrate</a>
+  </ion-toolbar>
+</ion-footer>
