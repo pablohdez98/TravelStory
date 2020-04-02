@@ -1,14 +1,22 @@
-<ion-content>
-  <h1>TravelStory</h1>
-  <ion-grid>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" >
-      <input formControlName="nombre" placeholder="Nombre de usuario o email" type="text">
-      <input formControlName="contraseña" placeholder="Contraseña" type="text">
-      <ion-button  type="submit" color="success">Iniciar sesión</ion-button>
-    </form>
-  </ion-grid>
+<ion-content scroll-y="false">
+
+  <div class="login">
+  <h1 class="text-center">TravelStory</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <ion-item class="border" lines="none">
+      <ion-input type="text" placeholder="Nombre de usuario o email"></ion-input>
+    </ion-item>
+    <ion-item class="border mt-2" lines="none">
+      <ion-input type="text" placeholder="Contraseña"></ion-input>
+    </ion-item>
+    <div class="text-center mt-2">
+      <ion-button type="submit" color="success">Iniciar sesión</ion-button>
+    </div>
+  </form>
+  </div>
 
 </ion-content>
+
 <ion-footer>
   <ion-toolbar class="ion-text-center">
     ¿No tienes cuenta?

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
+import {UsersService} from '../../service/users.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import {FormBuilder} from '@angular/forms';
 })
 export class LoginPage implements OnInit {
   protected loginForm: any;
-  constructor(public form: FormBuilder) {
+  constructor(public form: FormBuilder, protected serv: UsersService) {
     this.loginForm = this.form.group({
           nombre: '',
           contraseña: '',
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit {
     );
   }
   ngOnInit() {
+    this.serv.getUsers().subscribe(data => console.log(data));
   }
   onSubmit(form) {
     console.log(form);
