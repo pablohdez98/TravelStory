@@ -11,16 +11,15 @@ export class LoginPage implements OnInit {
   protected loginForm: any;
   constructor(public form: FormBuilder, protected serv: UsersService) {
     this.loginForm = this.form.group({
-          nombre: '',
+          email: '',
           contraseña: '',
         }
     );
   }
   ngOnInit() {
-    this.serv.getUsers().subscribe(data => console.log(data));
   }
   onSubmit(form) {
-    console.log(form);
+    this.serv.signIn(form.email, form.contraseña);
   }
 
 }
