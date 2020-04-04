@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomePage} from './home.page';
+import {PortalPage} from './portal.page';
 import {ProfileComponent} from './profile/profile.component';
-import {PortalComponent} from './portal/portal.component';
+import {HomeComponent} from './home/home.component';
 import {NewTripComponent} from './new-trip/new-trip.component';
 
 const routes: Routes = [
-  { path: '', component: HomePage, children: [
-      { path: 'portal', component: PortalComponent},
+  { path: '', component: PortalPage, children: [
+      { path: 'home', component: HomeComponent},
       { path: 'newTrip', component: NewTripComponent},
       { path: 'profile', component: ProfileComponent}
     ]},
@@ -19,4 +19,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class HomeRoutingModule { }
+export class PortalRoutingModule { }

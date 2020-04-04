@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 
-import { HomePage } from './home.page';
+import { PortalPage } from './portal.page';
 import {ComponentsModule} from '../../components/components.module';
-import {HomeRoutingModule} from './home-routing.module';
+import {PortalRoutingModule} from './portal-routing.module';
 import {ProfileComponent} from './profile/profile.component';
-import {PortalComponent} from './portal/portal.component';
+import {HomeComponent} from './home/home.component';
 import {NewTripComponent} from './new-trip/new-trip.component';
 
 @NgModule({
@@ -16,8 +16,8 @@ import {NewTripComponent} from './new-trip/new-trip.component';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    HomeRoutingModule
+    PortalRoutingModule
   ],
-  declarations: [HomePage, PortalComponent, NewTripComponent, ProfileComponent]
+  declarations: [PortalPage, HomeComponent, NewTripComponent, ProfileComponent]
 })
 export class HomePageModule {}
