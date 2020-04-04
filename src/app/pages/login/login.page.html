@@ -1,18 +1,18 @@
 <ion-content scroll-y="false">
 
   <div class="login">
-  <h1 class="text-center">TravelStory</h1>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-    <ion-item class="border" lines="none">
-      <ion-input type="text" formControlName="email" placeholder="Nombre de usuario o email"></ion-input>
-    </ion-item>
-    <ion-item class="border mt-2" lines="none">
-      <ion-input type="text" formControlName="contraseña" placeholder="Contraseña"></ion-input>
-    </ion-item>
-    <div class="text-center mt-2">
-      <ion-button type="submit" color="success">Iniciar sesión</ion-button>
-    </div>
-  </form>
+    <h1 class="text-center">TravelStory</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+      <ion-item class="border" lines="none">
+        <ion-input type="text" formControlName="email" placeholder="Nombre de usuario o email"></ion-input>
+      </ion-item>
+      <ion-item class="border mt-2" lines="none">
+        <ion-input type="password" formControlName="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+      <div class="text-center mt-2">
+        <ion-button type="submit" color="success">Iniciar sesión</ion-button>
+      </div>
+    </form>
   </div>
 
 </ion-content>
@@ -20,6 +20,6 @@
 <ion-footer>
   <ion-toolbar class="ion-text-center">
     ¿No tienes cuenta?
-    <a href="">Regístrate</a>
+    <a routerLink="/signUp">Regístrate</a>
   </ion-toolbar>
 </ion-footer>

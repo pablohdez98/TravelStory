@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import {map, switchMap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from './user';
 
 @Injectable({
     providedIn: 'root'
@@ -12,24 +11,35 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class UsersService {
     usersCollection: AngularFirestoreCollection;
     users: Observable <any>;
+    user: Observable<User>;
 
-    constructor(private afs: AngularFirestore, private fauth: AngularFireAuth) {
-        this.usersCollection = this.afs.collection('users');
-        this.users = this.usersCollection.snapshotChanges().pipe(
-            map(actions => {
-                return actions.map((c: any) => {
-                    const data = c.payload.doc.data();
-                    const id = c.payload.doc.id;
-                    return {id, ...data};
-                });
+    constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth) {
+        this.user = this.afAuth.authState.pipe(
+            switchMap(user => {
+                if (user) {
+                    return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+                } else {
+                    return of(null);
+                }
             })
         );
-    }
-    getUsers(): Observable<any> {
-        return this.users;
+        this.user.subscribe(data => console.log(data));
     }
 
-    signUp(email, password) {
-        firebase.auth().createUserWithEmailAndPassword(email, password);
+    signUp(email, password): Promise<any> {
+        return this.afAuth.createUserWithEmailAndPassword(email, password).then(data => {
+            this.afs.collection('users').doc<User>(data.user.uid).set({
+                name: 'name',
+                surname: 'apellidos'
+            });
+        });
+    }
+
+    logIn(email, password): Promise<any> {
+        return this.afAuth.signInWithEmailAndPassword(email, password);
+    }
+
+    logOut(): Promise<any> {
+        return this.afAuth.signOut();
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {UsersService} from '../../service/users.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +12,8 @@ export class SignUpPage implements OnInit {
   private signUpForm;
 
   constructor(public formBuilder: FormBuilder,
-              public usersService: UsersService) {
+              public usersService: UsersService,
+              public router: Router) {
     this.signUpForm = this.formBuilder.group({
       email: '',
       password: '',
@@ -21,7 +23,10 @@ export class SignUpPage implements OnInit {
   ngOnInit() {
   }
   onSubmit(form) {
-    this.usersService.signUp(form.email, form.password);
+    this.usersService.signUp(form.email, form.password).then(
+        () => this.router.navigate(['portal/home']),
+        error => console.log(error)
+    );
   }
 
 }
