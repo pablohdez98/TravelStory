@@ -1,4 +1,37 @@
-<ion-item>
-  <ion-label>Nombre</ion-label>
-  <ion-input></ion-input>
-</ion-item>
+<app-bar></app-bar>
+<ion-content>
+  <ion-grid>
+
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>País</ion-label>
+      <ionic-selectable
+              [(ngModel)]= "selectedUser" [items]="countries" [isMultiple]="true" [canClear]="true" [canSearch]="true"
+              itemValueField="id" itemTextField="country" searchFailText="No hay países que coincidan con la búsqueda">
+        <ng-template ionicSelectableCloseButtonTemplate><ion-icon name="close-circle"></ion-icon></ng-template>
+      </ionic-selectable>
+    </ion-item>
+
+    <ion-item>
+      <ion-col size="2">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="4">
+        <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Inicio"></ion-datetime>
+      </ion-col>
+      <ion-col size="4" offset="2">
+        <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Fin"></ion-datetime>
+      </ion-col>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="h1" position="stacked">Descripción</ion-label>
+      <ion-textarea rows="4"></ion-textarea>
+    </ion-item>
+
+  </ion-grid>
+</ion-content>

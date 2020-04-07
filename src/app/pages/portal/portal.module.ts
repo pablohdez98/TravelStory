@@ -9,14 +9,17 @@ import {PortalRoutingModule} from './portal-routing.module';
 import {ProfileComponent} from './profile/profile.component';
 import {HomeComponent} from './home/home.component';
 import {NewTripComponent} from './new-trip/new-trip.component';
+import { IonicSelectableModule } from 'ionic-selectable';
 
+// noinspection AngularInvalidImportedOrDeclaredSymbol
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     ComponentsModule,
-    PortalRoutingModule
+    PortalRoutingModule,
+    IonicSelectableModule
   ],
   declarations: [PortalPage, HomeComponent, NewTripComponent, ProfileComponent]
 })
