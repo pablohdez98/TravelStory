@@ -1,5 +1,15 @@
-<app-bar></app-bar>
-<ion-content>
-  <router-outlet></router-outlet>
-  <app-nav></app-nav>
-</ion-content>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon color="dark"  name="home-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="newTrip">
+      <ion-icon color="dark" name="location-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile">
+      <ion-icon color="dark" name="person-outline"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
