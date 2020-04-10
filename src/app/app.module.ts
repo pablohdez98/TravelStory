@@ -17,6 +17,8 @@ import {environment} from '../environments/environment';
 import {UsersService} from './service/users.service';
 import {AngularFireAuthGuard} from '@angular/fire/auth-guard';
 
+import { HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,6 +30,7 @@ import {AngularFireAuthGuard} from '@angular/fire/auth-guard';
       AngularFirestoreModule, // firestore
       AngularFireAuthModule, // auth
       AngularFireStorageModule,
+      HttpClientModule
   ],
   providers: [
     StatusBar,

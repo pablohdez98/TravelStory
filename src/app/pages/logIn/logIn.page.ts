@@ -10,14 +10,14 @@ import {Router} from '@angular/router';
 })
 export class LogInPage implements OnInit {
   protected loginForm: any;
-  constructor(public form: FormBuilder, protected serv: UsersService, public router: Router ) {
-    this.loginForm = this.form.group({
-          email: '',
-          password: '',
-        }
-    );
-  }
+  constructor(public formBuilder: FormBuilder, protected serv: UsersService, public router: Router ) {}
+
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: '',
+      password: '',
+    }
+  );
   }
 
   onSubmit(form) {

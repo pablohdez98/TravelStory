@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { PortalPage } from './portal.page';
 import {ComponentsModule} from '../../components/components.module';
@@ -19,7 +19,8 @@ import { IonicSelectableModule } from 'ionic-selectable';
     IonicModule,
     ComponentsModule,
     PortalRoutingModule,
-    IonicSelectableModule
+    IonicSelectableModule,
+    ReactiveFormsModule
   ],
   declarations: [PortalPage, HomeComponent, NewTripComponent, ProfileComponent]
 })

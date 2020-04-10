@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {UsersService} from '../../../service/users.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-new-trip',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewTripComponent implements OnInit {
   protected countries: any[];
-  protected selectedUser: any[];
+  protected selectedCountries: any[];
+  protected selectedFile: File = null;
+  protected tripForm: any;
 
-  constructor() {
+  constructor(private http: HttpClient, private afs: AngularFireStorage, private serv: UsersService,
+              private formBuilder: FormBuilder) {
     this.countries = [
         {id: 0, country: 'España'},
         {id: 1, country: 'Alemania'},
@@ -26,6 +33,21 @@ export class NewTripComponent implements OnInit {
         {id: 12, country: 'Hungría'},
     ];
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.tripForm = this.formBuilder.group({
+      title: '',
+      countries: '',
+      initDate: '',
+      endDate: '',
+      description: ''
+    });
+  }
 
+  onSubmit(form) {
+    this.serv.uploadTrip(form, this.selectedFile);
+  }
+
+  onFileSelected(event) {
+    this.selectedFile = event.target.files[0];
+  }
 }

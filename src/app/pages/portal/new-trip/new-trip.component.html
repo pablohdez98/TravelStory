@@ -1,37 +1,47 @@
 <app-bar></app-bar>
 <ion-content>
+  <h1 class="ion-text-center ion-margin">Registrar un viaje</h1>
   <ion-grid>
+    <form [formGroup]="tripForm" (ngSubmit)="onSubmit(tripForm.value)">
+      <ion-item>
+        <ion-label>Nombre</ion-label>
+        <ion-input formControlName="title"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>Nombre</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label>País</ion-label>
+        <ionic-selectable
+          formControlName="countries" [items]="countries" [isMultiple]="true" [canClear]="true" [canSearch]="true"
+          itemValueField="id" itemTextField="country" searchFailText="No hay países que coincidan con la búsqueda">
+          <ng-template ionicSelectableCloseButtonTemplate><ion-icon name="close-circle"></ion-icon></ng-template>
+        </ionic-selectable>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>País</ion-label>
-      <ionic-selectable
-              [(ngModel)]= "selectedUser" [items]="countries" [isMultiple]="true" [canClear]="true" [canSearch]="true"
-              itemValueField="id" itemTextField="country" searchFailText="No hay países que coincidan con la búsqueda">
-        <ng-template ionicSelectableCloseButtonTemplate><ion-icon name="close-circle"></ion-icon></ng-template>
-      </ionic-selectable>
-    </ion-item>
+      <ion-item>
+        <ion-col size="2">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="4">
+          <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Inicio" formControlName="initDate"></ion-datetime>
+        </ion-col>
+        <ion-col size="4" offset="2">
+          <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Fin" formControlName="endDate"></ion-datetime>
+        </ion-col>
+      </ion-item>
 
-    <ion-item>
-      <ion-col size="2">
-        <ion-icon name="calendar-outline"></ion-icon>
-      </ion-col>
-      <ion-col size="4">
-        <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Inicio"></ion-datetime>
-      </ion-col>
-      <ion-col size="4" offset="2">
-        <ion-datetime displayFormat="DD MMMM YYYY" placeholder="Fin"></ion-datetime>
-      </ion-col>
-    </ion-item>
+      <ion-item>
+        <ion-label class="h1" position="stacked">Descripción</ion-label>
+        <ion-textarea rows="4" formControlName="description"></ion-textarea>
+      </ion-item>
 
-    <ion-item>
-      <ion-label class="h1" position="stacked">Descripción</ion-label>
-      <ion-textarea rows="4"></ion-textarea>
-    </ion-item>
-
+      <div class="mt-3 text-center pointer text-white">
+        <label>
+          <input type="file" class="d-none"
+          (change)="onFileSelected($event)">
+          <p class="py-2 px-1 bg-secondary"> Subir Imagenes</p>
+        </label>
+      </div>
+      <ion-button type="submit">Compartir</ion-button>
+    </form>
   </ion-grid>
 </ion-content>
