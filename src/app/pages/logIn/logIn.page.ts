@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {UsersService} from '../../service/users.service';
 import {Router} from '@angular/router';
@@ -13,6 +13,11 @@ export class LogInPage implements OnInit {
   constructor(public formBuilder: FormBuilder, protected serv: UsersService, public router: Router ) {}
 
   ngOnInit() {
+    this.serv.getUser().subscribe(user => {
+      if (user) {
+        this.router.navigate(['/portal/home']);
+      }
+    });
     this.loginForm = this.formBuilder.group({
       email: '',
       password: '',
