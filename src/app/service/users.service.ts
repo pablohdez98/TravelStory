@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
-import {switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user';
@@ -11,7 +11,6 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class UsersService {
-  usersCollection: AngularFirestoreCollection;
   users: Observable <any>;
   user: Observable<User>;
 
@@ -27,6 +26,9 @@ export class UsersService {
       })
     );
     this.user.subscribe(data => console.log(data));
+  }
+  getUser(): Observable<any> {
+    return this.user;
   }
 
   signUp(email, password): Promise<any> {
@@ -49,7 +51,7 @@ export class UsersService {
   uploadTrip(form, image) {
     const selectedCountries = form.countries.map(data => data.country);
     this.afAuth.authState.subscribe(user => {
-      const filePath = `${user.uid}/title/${Date.now()}`;
+      const filePath = `${user.uid}/${form.title}/${Date.now()}`;
       this.afSt.upload(filePath, image);
       this.afs.collection('trips').add({
         idUser: user.uid,
@@ -61,5 +63,21 @@ export class UsersService {
         image: filePath
       });
     });
+  }
+  getTrips(): Observable<any> {
+    return this.afAuth.authState.pipe(
+        switchMap(user => {
+          return this.afs.collection('trips', ref => ref.where('idUser', '==', user.uid)).snapshotChanges().pipe(
+              map(actions => actions.map(a => {
+                const data = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              })));
+        })
+    );
+  }
+  getImage(path): Observable<any> {
+    const ref = this.afSt.ref(path);
+    return ref.getDownloadURL();
   }
 }

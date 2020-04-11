@@ -1,5 +1,15 @@
 <app-bar></app-bar>
 <ion-content>
+  <h1 class="ion-margin">Mis viajes</h1>
+  <ion-card *ngFor="let trip of trips; let i = index" [routerLink]="['../trip/',trip.id]">
+    <img src='{{images[i]}}' height="100px" width="343px" alt="">
+    <ion-card-header>
+      <ion-card-title>
+        {{trip.title}}
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
   <div class="text-center mt-2">
     <ion-button (click) = 'logOut()' type="submit" color="success">Cerrar sesión</ion-button>
   </div>

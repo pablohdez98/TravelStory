@@ -8,10 +8,22 @@ import {Router} from '@angular/router';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  protected trips: any[];
+  protected images: any[];
+  constructor(protected serv: UsersService, private router: Router) {
+    this.images = [];
+  }
 
-  constructor(protected serv: UsersService, public router: Router) { }
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.serv.getTrips().subscribe(userTrips => {
+      this.trips = userTrips;
+      this.trips.forEach(trip => {
+        this.serv.getImage(trip.image).subscribe(image => {
+          this.images.push(image);
+        });
+      });
+    });
+  }
 
   logOut() {
     this.serv.logOut().then(
