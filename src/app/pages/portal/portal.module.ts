@@ -10,8 +10,8 @@ import {ProfileComponent} from './profile/profile.component';
 import {HomeComponent} from './home/home.component';
 import {NewTripComponent} from './new-trip/new-trip.component';
 import { IonicSelectableModule } from 'ionic-selectable';
+import {TripViewComponent} from './trip-view/trip-view.component';
 
-// noinspection AngularInvalidImportedOrDeclaredSymbol
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +22,6 @@ import { IonicSelectableModule } from 'ionic-selectable';
     IonicSelectableModule,
     ReactiveFormsModule
   ],
-  declarations: [PortalPage, HomeComponent, NewTripComponent, ProfileComponent]
+  declarations: [PortalPage, HomeComponent, NewTripComponent, ProfileComponent, TripViewComponent]
 })
 export class HomePageModule {}
