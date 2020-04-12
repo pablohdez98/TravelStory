@@ -25,10 +25,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  logOut() {
-    this.serv.logOut().then(
-        () => this.router.navigate(['logIn']),
-        error => console.log(error)
-    );
+  async logOut() {
+    await this.serv.logOut();
+    localStorage.removeItem('user');
+    await this.router.navigate(['logIn']);
   }
 }
