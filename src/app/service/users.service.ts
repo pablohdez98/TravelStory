@@ -82,4 +82,25 @@ export class UsersService {
     const ref = this.afSt.ref(path);
     return ref.getDownloadURL();
   }
+
+  getOneTrip(idTrip): Observable<any> {
+    return this.afs.collection('trips').doc(idTrip).valueChanges();
+  }
+
+  getRates(idTrip): Observable<any> {
+    return this.afs.collection('trips').doc(idTrip).collection('rates').valueChanges();
+  }
+
+  checkComments(idTrip, userId): Observable<any> {
+    return this.afs.collection('trips').doc(idTrip).collection('rates', ref => ref.where('idUser', '==', userId)).valueChanges();
+  }
+
+  rate(idTrip, comment, rate): Promise<any> {
+    const userId = JSON.parse(localStorage.getItem('user')).id;
+    return this.afs.collection('trips').doc(idTrip).collection('rates').add({
+      idUser: userId,
+      comment,
+      rate
+    });
+  }
 }

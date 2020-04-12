@@ -1,3 +1,29 @@
-<p>
-  trip-view works!
-</p>
+<app-bar></app-bar>
+<ion-content>
+  <div class="ion-margin">
+    <h1>{{trip.title}}</h1>
+    <p>{{countries}}</p>
+    <img src='{{image}}' height="150px" width="343px" alt="">
+    <p class="text-right">{{trip.initDate}} {{trip.endDate}}</p>
+    <p class="text-justify hideContent">{{trip.description}}</p>
+    <div>
+      <img src='{{image}}' height="100" width="100px" alt="">
+      <div class="float-right">
+        <p>Valoración</p>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+      </div>
+    </div>
+    <p class="mt-3">
+      <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+      Ver los 3 comentarios</p>
+    <p *ngFor="let rate of rates">{{rate.comment}}</p>
+    <p *ngIf="alreadyCommented; else newComment">Modificar comentario</p>
+    <ng-template #newComment>
+      <ion-button (click)="presentModal()">Nuevo comentario</ion-button>
+    </ng-template>
+  </div>
+</ion-content>
