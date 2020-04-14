@@ -68,11 +68,17 @@ export class UsersService {
       image: filePath
     });
   }
-  getTrips(): Observable<any> {
-    const userId = JSON.parse(localStorage.getItem('user')).id;
-    return this.afs.collection('trips', ref => ref.where('idUser', '==', userId)).snapshotChanges().pipe(
+  getTrips(fieldPath = null, opStr = null, value = null): Observable<any> {
+    let search: Observable<any>;
+    if (fieldPath && opStr && value) {
+      search = this.afs.collection('trips', ref => ref.where(fieldPath, opStr, value)).snapshotChanges();
+    } else {
+      search = this.afs.collection('trips').snapshotChanges();
+    }
+    return search.pipe(
         map(actions => actions.map(a => {
           const data = a.payload.doc.data();
+          data.countries = data.countries.join(', ');
           const id = a.payload.doc.id;
           return { id, ...data };
         }))
