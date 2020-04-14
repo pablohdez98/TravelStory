@@ -15,11 +15,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serv.getTrips().subscribe(userTrips => {
+    this.serv.getTrips('idUser', '==', JSON.parse(localStorage.getItem('user')).id).subscribe(userTrips => {
       this.trips = userTrips;
-      this.trips.forEach(trip => {
+      this.images = [];
+      this.trips.forEach((trip, i) => {
         this.serv.getImage(trip.image).subscribe(image => {
-          this.images.push(image);
+          this.images[i] = image;
         });
       });
     });
