@@ -13,7 +13,6 @@ export class LoginGuard implements CanLoad {
     return this.checkLogin();
   }
   async checkLogin(): Promise<boolean> {
-    console.log(localStorage.getItem('user'));
     if (!localStorage.getItem('user')) {
       return true;
     }

@@ -13,6 +13,11 @@ export class LogInPage implements OnInit {
   constructor(public formBuilder: FormBuilder, protected serv: UsersService, public router: Router ) {}
 
   ngOnInit() {
+    this.serv.getUser().subscribe(user => {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+    });
     this.loginForm = this.formBuilder.group({
       email: '',
       password: '',
@@ -21,9 +26,6 @@ export class LogInPage implements OnInit {
   async onSubmit(form) {
     this.serv.logIn(form.email, form.password).then(
         () => {
-          this.serv.getUser().subscribe(user => {
-              localStorage.setItem('user', JSON.stringify(user));
-          });
           this.router.navigate(['portal/home']);
         },
         error => console.log(error));
