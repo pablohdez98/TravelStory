@@ -13,7 +13,6 @@ import 'firebase/firestore';
   providedIn: 'root'
 })
 export class UsersService {
-  users: Observable <any>;
   user: Observable<User>;
 
   constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth,
@@ -93,7 +92,12 @@ export class UsersService {
   }
 
   getOneTrip(idTrip): Observable<any> {
-    return this.afs.collection('trips').doc(idTrip).valueChanges();
+    return this.afs.collection('trips').doc<any>(idTrip).valueChanges().pipe(
+      map(action => {
+        action.countries = action.countries.join(', ');
+        return action;
+      })
+    );
   }
 
   getRates(idTrip): Observable<any> {

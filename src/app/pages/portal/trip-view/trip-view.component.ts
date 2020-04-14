@@ -11,7 +11,6 @@ import {NewCommentComponent} from '../../../components/new-comment/new-comment.c
 })
 export class TripViewComponent implements OnInit {
   private trip: any;
-  private countries: string;
   private image: any;
   protected rates: any[];
   private alreadyCommented: boolean;
@@ -24,7 +23,6 @@ export class TripViewComponent implements OnInit {
     this.ruta.params.subscribe(async (p) => {
       this.serv.getOneTrip(p.id).subscribe(resp => {
         this.trip = resp;
-        this.countries = this.trip.countries.join(', ');
         this.serv.getImage(this.trip.image).subscribe(image => {
           this.image = image;
         });
@@ -33,7 +31,6 @@ export class TripViewComponent implements OnInit {
       this.serv.checkComments(p.id, 'kzld2oYQm4SSBVvTyOn2jqKIrXM2-').subscribe(data => {
         this.alreadyCommented = data.length > 0;
       });
-      // await this.serv.rate(p.id, 'estuvo chulo', '5');
     });
   }
 
