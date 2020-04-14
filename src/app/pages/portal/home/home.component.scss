@@ -1,0 +1,15 @@
+.div-img{
+  height: calc(33vw - 10px);
+  overflow: hidden;
+  position: relative;
+}
+.imagen{
+  height: calc(33vw - 10px);
+  position: absolute;
+  top: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  right: -9999px;
+  margin: auto;
+  object-fit: cover;
+}

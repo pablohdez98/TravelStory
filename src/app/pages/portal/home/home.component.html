@@ -2,5 +2,16 @@
 <ion-content>
     <ion-grid>
         <ion-toolbar> <ion-searchbar class="my-3" placeholder="Search Favorites"></ion-searchbar></ion-toolbar>
+        <ion-row>
+            <ion-col class="ion-text-center" size="4" *ngFor="let trip of trips; let i = index">
+                <div class="div-img">
+                    <img class="imagen" src="{{images[i]}}" alt="">
+                </div>
+                <span>{{trip.title}}</span>
+                <span>{{trip.countries}}</span>
+                <div class="bg-light">
+                </div>
+            </ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>
