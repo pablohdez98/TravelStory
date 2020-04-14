@@ -6,6 +6,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user';
 import {AngularFireStorage} from '@angular/fire/storage';
 import * as moment from 'moment';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +67,8 @@ export class UsersService {
       initDate: moment(form.initDate).format('YYYY-MM-DD'),
       endDate: moment(form.endDate).format('YYYY-MM-DD'),
       description: form.description,
-      image: filePath
+      image: filePath,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
   getTrips(fieldPath = null, opStr = null, value = null): Observable<any> {
