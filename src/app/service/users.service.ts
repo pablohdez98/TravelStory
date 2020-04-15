@@ -33,15 +33,16 @@ export class UsersService {
       })
     );
   }
+
   getUser(): Observable<any> {
     return this.user;
   }
 
-  signUp(email, password): Promise<any> {
-    return this.afAuth.createUserWithEmailAndPassword(email, password).then(async data => {
+  signUp(form): Promise<any> {
+    return this.afAuth.createUserWithEmailAndPassword(form.email, form.password).then(async data => {
       await this.afs.collection('users').doc<User>(data.user.uid).set({
-        name: 'name',
-        surname: 'apellidos'
+        name: form.name,
+        surname: form.surname
       });
     });
   }

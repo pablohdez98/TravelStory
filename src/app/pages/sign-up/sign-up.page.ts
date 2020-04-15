@@ -17,13 +17,15 @@ export class SignUpPage implements OnInit {
     this.signUpForm = this.formBuilder.group({
       email: '',
       password: '',
+      name: '',
+      surname: ''
     });
   }
 
   ngOnInit() {
   }
   onSubmit(form) {
-    this.usersService.signUp(form.email, form.password).then(
+    this.usersService.signUp(form).then(
         () => this.router.navigate(['portal/home']),
         error => console.log(error)
     );

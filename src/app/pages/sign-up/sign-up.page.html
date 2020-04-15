@@ -4,13 +4,19 @@
     <h1 class="text-center">TravelStory</h1>
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm.value)">
       <ion-item class="border" lines="none">
-        <ion-input type="text" formControlName="email"></ion-input>
+        <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
       </ion-item>
       <ion-item class="border mt-2" lines="none">
-        <ion-input type="password" formControlName="password"></ion-input>
+        <ion-input type="password" formControlName="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+      <ion-item class="border mt-2" lines="none">
+        <ion-input type="text" formControlName="name" placeholder="Nombre de usuario"></ion-input>
+      </ion-item>
+      <ion-item class="border mt-2" lines="none">
+        <ion-input type="text" formControlName="surname" placeholder="Apellidos"></ion-input>
       </ion-item>
       <div class="text-center mt-2">
-        <ion-button type="submit" color="success">Iniciar sesión</ion-button>
+        <ion-button type="submit" color="success">Crear cuenta</ion-button>
       </div>
     </form>
   </div>
