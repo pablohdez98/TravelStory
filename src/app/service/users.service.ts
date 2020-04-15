@@ -109,12 +109,12 @@ export class UsersService {
     return this.afs.collection('trips').doc(idTrip).collection('rates', ref => ref.where('idUser', '==', userId)).valueChanges();
   }
 
-  rate(idTrip, comment, rate): Promise<any> {
-    const userId = JSON.parse(localStorage.getItem('user')).id;
-    return this.afs.collection('trips').doc(idTrip).collection('rates').add({
-      idUser: userId,
-      comment,
-      rate
+  createRate(form): Promise<any> {
+    const idUser = JSON.parse(localStorage.getItem('user')).id;
+    return this.afs.collection('trips').doc(form.idTrip).collection('rates').add( {
+      idUser,
+      rate: form.rate,
+      comment: form.comment
     });
   }
 }
