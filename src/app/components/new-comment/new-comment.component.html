@@ -1,8 +1,33 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Modal Content</ion-title>
+    <ion-title>Nuevo comentario</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">Close</ion-button>
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+  <form [formGroup]="rateForm" (ngSubmit)="onSubmit(rateForm.value)">
+    <ion-item>
+      <ion-label>Valoración</ion-label>
+      <div class="rate">
+        <input formControlName="rate" type="radio" id="star5" name="rate" value="5" />
+        <label for="star5" title="text">5 stars</label>
+        <input formControlName="rate" type="radio" id="star4" name="rate" value="4" />
+        <label for="star4" title="text">4 stars</label>
+        <input formControlName="rate" type="radio" id="star3" name="rate" value="3" />
+        <label for="star3" title="text">3 stars</label>
+        <input formControlName="rate" type="radio" id="star2" name="rate" value="2" />
+        <label for="star2" title="text">2 stars</label>
+        <input formControlName="rate" type="radio" id="star1" name="rate" value="1" />
+        <label for="star1" title="text">1 star</label>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label class="h1" position="stacked">Comentario</ion-label>
+      <ion-textarea rows="4" formControlName="comment"></ion-textarea>
+    </ion-item>
+    <ion-button class="ion-margin" type="submit">Enviar</ion-button>
+  </form>
+</ion-content>

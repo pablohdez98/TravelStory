@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
+import {UsersService} from '../../service/users.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-new-comment',
@@ -7,15 +9,29 @@ import {ModalController} from '@ionic/angular';
   styleUrls: ['./new-comment.component.scss'],
 })
 export class NewCommentComponent implements OnInit {
+  idTrip;
+  private rateForm: any;
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController, private serv: UsersService,
+              private formBuilder: FormBuilder) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.rateForm = this.formBuilder.group({
+      rate: '',
+      comment: '',
+      idTrip: this.idTrip
+    });
+  }
 
   async dismissModal() {
     await this.modalController.dismiss({
       dismissed: true
     });
+  }
+
+  async onSubmit(form) {
+    this.serv.createRate(form);
+    await this.dismissModal();
   }
 
 }
