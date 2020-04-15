@@ -1,13 +1,14 @@
 <app-bar></app-bar>
 <ion-content>
     <ion-grid>
-        <ion-toolbar> <ion-searchbar class="my-3" placeholder="Search Favorites"></ion-searchbar></ion-toolbar>
+        <ion-toolbar> <ion-searchbar class="my-3" placeholder="Busca un viaje"></ion-searchbar></ion-toolbar>
         <ion-row>
-            <ion-col class="ion-text-center" size="4" *ngFor="let trip of trips; let i = index">
+            <ion-col class="ion-text-center" size="4" *ngFor="let trip of trips; let i = index" [routerLink]="['../trip/',trip.id]">
                 <div class="div-img">
-                    <img class="imagen" src="{{images[i]}}" alt="">
+                    <img class="imagen" src="{{trip.image}}" alt="">
                 </div>
                 <span>{{trip.title}}</span>
+                <br>
                 <span>{{trip.countries}}</span>
                 <div class="bg-light">
                 </div>

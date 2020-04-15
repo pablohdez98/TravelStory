@@ -15,14 +15,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serv.getTrips('idUser', '==', JSON.parse(localStorage.getItem('user')).id).subscribe(userTrips => {
-      this.trips = userTrips;
-      this.images = [];
-      this.trips.forEach((trip, i) => {
-        this.serv.getImage(trip.image).subscribe(image => {
-          this.images[i] = image;
+    this.serv.getUser().subscribe( user => {
+      if (user) {
+        this.serv.getTrips('idUser', '==', user.id).subscribe(async userTrips => {
+          this.trips = await Promise.all(userTrips);
         });
-      });
+      }
     });
   }
 

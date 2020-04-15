@@ -3,13 +3,13 @@
   <div class="ion-margin">
     <h1>{{trip.title}}</h1>
     <p>{{trip.countries}}</p>
-    <img src='{{image}}' height="150px" width="343px" alt="">
+    <img src='{{trip.image}}' height="150px" width="343px" alt="">
     <p class="text-right">{{trip.initDate}} {{trip.endDate}}</p>
-    <p class="text-justify hideContent">{{trip.description}}</p>
+    <p class="text-justify">{{trip.description}}</p>
     <div>
-      <img src='{{image}}' height="100" width="100px" alt="">
+      <img src='{{trip.image}}' height="100" width="100px" alt="">
       <div class="float-right">
-        <p>Valoración</p>
+        <p>Valoración: {{totalRate}}</p>
         <ion-icon name="star-outline"></ion-icon>
         <ion-icon name="star-outline"></ion-icon>
         <ion-icon name="star-outline"></ion-icon>
@@ -21,7 +21,7 @@
       <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
       Ver los 3 comentarios</p>
     <p *ngFor="let rate of rates">{{rate.comment}}</p>
-    <p *ngIf="alreadyCommented; else newComment">Modificar comentario</p>
+    <ion-button *ngIf="alreadyCommented; else newComment" color="danger">Eliminar comentario</ion-button>
     <ng-template #newComment>
       <ion-button (click)="presentModal()">Nuevo comentario</ion-button>
     </ng-template>

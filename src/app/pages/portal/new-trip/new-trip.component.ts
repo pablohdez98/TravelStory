@@ -11,7 +11,6 @@ import {FormBuilder} from '@angular/forms';
 })
 export class NewTripComponent implements OnInit {
   protected countries: any[];
-  protected selectedCountries: any[];
   protected selectedFile: File = null;
   protected tripForm: any;
 

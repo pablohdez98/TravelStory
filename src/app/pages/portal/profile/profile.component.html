@@ -2,7 +2,7 @@
 <ion-content>
   <h1 class="ion-margin">Mis viajes</h1>
   <ion-card *ngFor="let trip of trips; let i = index" [routerLink]="['../trip/',trip.id]">
-    <img src='{{images[i]}}' height="100px" width="343px" alt="">
+    <img src='{{trip.image}}' height="100px" width="343px" alt="">
     <ion-card-header>
       <ion-card-title>
         {{trip.title}}

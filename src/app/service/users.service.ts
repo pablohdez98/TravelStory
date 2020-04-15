@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, take} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user';
@@ -71,7 +71,7 @@ export class UsersService {
       date: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
-  getTrips(fieldPath = null, opStr = null, value = null): Observable<any> {
+  getTrips(fieldPath = null, opStr = null, value = null): Observable<Promise<any>[]> {
     let search: Observable<any>;
     if (fieldPath && opStr && value) {
       search = this.afs.collection('trips', ref => ref.where(fieldPath, opStr, value)).snapshotChanges();
@@ -79,24 +79,26 @@ export class UsersService {
       search = this.afs.collection('trips').snapshotChanges();
     }
     return search.pipe(
-        map(actions => actions.map(a => {
+        map(actions => actions.map(async a => {
           const data = a.payload.doc.data();
           data.countries = data.countries.join(', ');
+          data.image = await this.getImage(data.image);
           const id = a.payload.doc.id;
           return { id, ...data };
         }))
     );
   }
-  getImage(path): Observable<any> {
+  getImage(path): Promise<any> {
     const ref = this.afSt.ref(path);
-    return ref.getDownloadURL();
+    return ref.getDownloadURL().pipe(take(1)).toPromise();
   }
 
-  getOneTrip(idTrip): Observable<any> {
+  getOneTrip(idTrip): Observable<Promise<any>> {
     return this.afs.collection('trips').doc<any>(idTrip).valueChanges().pipe(
-      map(action => {
-        action.countries = action.countries.join(', ');
-        return action;
+      map(async data => {
+        data.countries = data.countries.join(', ');
+        data.image = await this.getImage(data.image);
+        return data;
       })
     );
   }

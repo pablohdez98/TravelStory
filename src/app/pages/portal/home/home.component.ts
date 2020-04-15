@@ -14,14 +14,14 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usersService.getTrips().subscribe(trips => {
-      this.trips = trips;
-      this.images = [];
-      this.trips.forEach((trip, i) => {
-        this.usersService.getImage(trip.image).subscribe(image => {
-          this.images[i] = image;
-        });
-      });
+    this.usersService.getTrips().subscribe(async trips => {
+       this.trips = await Promise.all(trips);
+    //   this.images = [];
+    //   this.trips.forEach((trip, i) => {
+    //     this.usersService.getImage(trip.image).subscribe(image => {
+    //       this.images[i] = image;
+    //     });
+    //   });
     });
   }
 

@@ -11,32 +11,45 @@ import {NewCommentComponent} from '../../../components/new-comment/new-comment.c
 })
 export class TripViewComponent implements OnInit {
   private trip: any;
-  private image: any;
+  private idTrip: string;
   protected rates: any[];
   private alreadyCommented: boolean;
+  private totalRate;
 
   constructor(private ruta: ActivatedRoute, private serv: UsersService, private modalController: ModalController) {
     this.trip = {};
   }
 
   ngOnInit() {
+    let sum = 0;
     this.ruta.params.subscribe(async (p) => {
-      this.serv.getOneTrip(p.id).subscribe(resp => {
-        this.trip = resp;
-        this.serv.getImage(this.trip.image).subscribe(image => {
-          this.image = image;
-        });
+      this.idTrip = p.id;
+      this.serv.getOneTrip(this.idTrip).subscribe(async resp => {
+        this.trip = await resp;
       });
-      this.serv.getRates(p.id).subscribe(rates => this.rates = rates);
-      this.serv.checkComments(p.id, 'kzld2oYQm4SSBVvTyOn2jqKIrXM2-').subscribe(data => {
-        this.alreadyCommented = data.length > 0;
+      this.serv.getRates(p.id).subscribe(rates => {
+        this.rates = rates;
+        this.rates.forEach(rate => {
+          sum += Number(rate.rate);
+        });
+        this.totalRate = Math.round(sum / this.rates.length);
+      });
+      this.serv.getUser().subscribe(user => {
+        if (user) {
+          this.serv.checkComments(p.id, user.id).subscribe(data => {
+            this.alreadyCommented = data.length > 0;
+          });
+        }
       });
     });
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: NewCommentComponent
+      component: NewCommentComponent,
+      componentProps: {
+        idTrip: this.idTrip
+      }
     });
     return await modal.present();
   }
