@@ -58,8 +58,8 @@ export class UsersService {
   async uploadTrip(form, image) {
     const selectedCountries = form.countries.map(data => data.country);
     const userId = JSON.parse(localStorage.getItem('user')).id;
-    const filePath = `${userId}/${form.title}/${Date.now()}`;
-    this.afSt.upload(filePath, image);
+    const filePath = `${userId}/${form.title}-${Date.now()}/${image.name}`;
+    await this.afSt.upload(filePath, image);
     await this.afs.collection('trips').add({
       idUser: userId,
       title: form.title,
@@ -68,6 +68,7 @@ export class UsersService {
       endDate: moment(form.endDate).format('YYYY-MM-DD'),
       description: form.description,
       image: filePath,
+      totalStars: 0,
       date: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
@@ -116,8 +117,13 @@ export class UsersService {
     return this.afs.collection('trips').doc(idTrip).collection('rates', ref => ref.where('idUser', '==', userId)).valueChanges();
   }
 
-  createRate(form): Promise<any> {
+  async createRate(form): Promise<any> {
     const idUser = JSON.parse(localStorage.getItem('user')).id;
+    const trip = await this.afs.collection('trips').doc<any>(form.idTrip).valueChanges().pipe(
+      take(1)).toPromise();
+    await this.afs.collection('trips').doc<any>(form.idTrip).update({
+      totalStars: trip.totalStars + Number(form.rate),
+    });
     return this.afs.collection('trips').doc(form.idTrip).collection('rates').add( {
       idUser,
       rate: form.rate,

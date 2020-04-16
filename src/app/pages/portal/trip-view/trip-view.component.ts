@@ -21,18 +21,18 @@ export class TripViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    let sum = 0;
     this.ruta.params.subscribe(async (p) => {
       this.idTrip = p.id;
       this.serv.getOneTrip(this.idTrip).subscribe(async resp => {
         this.trip = await resp;
       });
       this.serv.getRates(p.id).subscribe(rates => {
+        let sum = 0;
         this.rates = rates;
         this.rates.forEach(rate => {
           sum += Number(rate.rate);
         });
-        this.totalRate = Math.round(sum / this.rates.length);
+        this.totalRate = sum ? Math.round(sum / this.rates.length) : 'Sin valoraciones';
       });
       this.serv.getUser().subscribe(user => {
         if (user) {
