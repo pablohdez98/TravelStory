@@ -1,7 +1,15 @@
 <app-bar></app-bar>
 <ion-content>
     <ion-grid>
-        <ion-toolbar> <ion-searchbar class="my-3" placeholder="Busca un viaje"></ion-searchbar></ion-toolbar>
+        <ion-toolbar> <ion-searchbar (keyup)="busca($event)" class="my-3" placeholder="Busca un viaje"></ion-searchbar>
+        <ion-buttons slot="end">
+            <ion-select [(ngModel)]="orderBy" (ionChange)="changeOrder()" interface="s">
+                <ion-select-option value="title">Nombre</ion-select-option>
+                <ion-select-option value="date">Fecha</ion-select-option>
+                <ion-select-option value="rate">Valoración</ion-select-option>
+            </ion-select>
+        </ion-buttons>
+        </ion-toolbar>
         <ion-row>
             <ion-col class="ion-text-center" size="4" *ngFor="let trip of trips; let i = index" [routerLink]="['../trip/',trip.id]">
                 <div class="div-img">

@@ -71,12 +71,17 @@ export class UsersService {
       date: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
-  getTrips(fieldPath = null, opStr = null, value = null): Observable<Promise<any>[]> {
+  getTrips(startWith, fieldPath = null, value = null, opStr = null): Observable<Promise<any>[]> {
     let search: Observable<any>;
-    if (fieldPath && opStr && value) {
-      search = this.afs.collection('trips', ref => ref.where(fieldPath, opStr, value)).snapshotChanges();
+    if (startWith) {
+      search = this.afs.collection('trips', ref => ref.where('title', '>=', value)
+        .where('title', '<', `${value}\uf8ff`)).snapshotChanges();
     } else {
-      search = this.afs.collection('trips').snapshotChanges();
+      if (fieldPath && opStr && value) {
+        search = this.afs.collection('trips', ref => ref.where(fieldPath, opStr, value)).snapshotChanges();
+      } else {
+        search = this.afs.collection('trips').snapshotChanges();
+      }
     }
     return search.pipe(
         map(actions => actions.map(async a => {
