@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.serv.getUser().subscribe( user => {
       if (user) {
-        this.serv.getTrips('idUser', '==', user.id).subscribe(async userTrips => {
+        this.serv.getTrips(false, 'idUser', user.id, '==').subscribe(async userTrips => {
           this.trips = await Promise.all(userTrips);
         });
       }

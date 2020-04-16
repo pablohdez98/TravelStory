@@ -30,7 +30,7 @@ export class NewCommentComponent implements OnInit {
   }
 
   async onSubmit(form) {
-    this.serv.createRate(form);
+    await this.serv.createRate(form);
     await this.dismissModal();
   }
 
