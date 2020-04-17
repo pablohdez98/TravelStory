@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {AngularFireStorage} from '@angular/fire/storage';
-import {UsersService} from '../../../service/users.service';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AlertController} from '@ionic/angular';
+import {TripService} from '../../../services/trip/trip.service';
 
 @Component({
   selector: 'app-new-trip',
@@ -14,8 +14,8 @@ export class NewTripComponent implements OnInit {
   protected selectedFile: File = null;
   protected tripForm: any;
 
-  constructor(private http: HttpClient, private afs: AngularFireStorage, private serv: UsersService,
-              private formBuilder: FormBuilder) {
+  constructor(private tripService: TripService, private formBuilder: FormBuilder, private router: Router,
+              private alertController: AlertController) {
     this.countries = [
         {id: 0, country: 'España'},
         {id: 1, country: 'Alemania'},
@@ -34,16 +34,26 @@ export class NewTripComponent implements OnInit {
   }
   ngOnInit() {
     this.tripForm = this.formBuilder.group({
-      title: '',
-      countries: '',
-      initDate: '',
-      endDate: '',
-      description: ''
+      title: ['', Validators.required],
+      countries: ['', Validators.required],
+      initDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
 
-  onSubmit(form) {
-    this.serv.uploadTrip(form, this.selectedFile);
+  async onSubmit(form) {
+    if (this.tripForm.status === 'VALID') {
+      await this.tripService.uploadTrip(form, this.selectedFile);
+      await this.router.navigate(['portal/profile']);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'No se pudo crear el viaje',
+        message: 'Asegurate de rellenar todos los campos correctamente',
+        buttons: ['Vale']
+      });
+      await alert.present();
+    }
   }
 
   onFileSelected(event) {

@@ -1,15 +1,15 @@
 <app-bar></app-bar>
 <ion-content>
-  <h1 class="ion-text-center ion-margin">Registrar un viaje</h1>
+  <h1 class="ion-margin">Registra un viaje</h1>
   <ion-grid>
     <form [formGroup]="tripForm" (ngSubmit)="onSubmit(tripForm.value)">
       <ion-item>
-        <ion-label>Título</ion-label>
+        <ion-label>Título:</ion-label>
         <ion-input formControlName="title"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>País</ion-label>
+        <ion-label>País:</ion-label>
         <ionic-selectable
           formControlName="countries" [items]="countries" [isMultiple]="true" [canClear]="true" [canSearch]="true"
           itemValueField="id" itemTextField="country" searchFailText="No hay países que coincidan con la búsqueda">
@@ -30,18 +30,21 @@
       </ion-item>
 
       <ion-item>
-        <ion-label class="h1" position="stacked">Descripción</ion-label>
+        <ion-label class="h1" position="stacked">Descripción:</ion-label>
         <ion-textarea rows="4" formControlName="description"></ion-textarea>
       </ion-item>
 
-      <div class="mt-3 text-center pointer text-white">
+      <div class="ion-margin mt-3 pointer">
         <label>
           <input type="file" class="d-none"
           (change)="onFileSelected($event)">
-          <p class="py-2 px-1 bg-secondary"> Subir Imagenes</p>
+          <ion-row class="py-2 px-1 border border-dark rounded align-content-center">
+            <ion-icon class="h3" name="image-outline"></ion-icon> <span class="m-2">Seleccionar imagen</span>
+          </ion-row>
         </label>
       </div>
-      <ion-button type="submit">Compartir</ion-button>
+
+      <ion-button expand="block" color="success" type="submit">Compartir</ion-button>
     </form>
   </ion-grid>
 </ion-content>
