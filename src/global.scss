@@ -26,9 +26,12 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
+$blueTitle: #1ea9d4;
+$greenTitle: #14b210;
+
 h1 {
   font-size: 24px;
-  background: linear-gradient(to right, blue 10%, green 100%);
+  background: green;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -36,7 +39,7 @@ h1 {
 .login {
   position: absolute;
   top: 0;
-  height: 50%;
+  height: 60%;
   bottom: 0;
   left: 5%;
   right: 5%;
@@ -49,3 +52,23 @@ button, [type="submit"] {
 ion-label{
   font-size: 17px !important;
 }
+
+.title1 {
+  @extend .bar1;
+  font-size: 40px;
+}
+
+.title2 {
+  @extend .bar2;
+  font-size: 40px;
+}
+
+.bar1 {
+  color: $blueTitle;
+}
+
+.bar2 {
+  color: $greenTitle;
+}
+
+
