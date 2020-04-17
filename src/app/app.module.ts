@@ -14,7 +14,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import { AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {environment} from '../environments/environment';
-import {UsersService} from './service/users.service';
+import {UserService} from './services/user/user.service';
 import {AngularFireAuthGuard} from '@angular/fire/auth-guard';
 
 import { HttpClientModule} from '@angular/common/http';
@@ -34,7 +34,7 @@ import { HttpClientModule} from '@angular/common/http';
   ],
   providers: [
     StatusBar,
-    UsersService,
+    UserService,
     SplashScreen,
     AngularFireAuthGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
