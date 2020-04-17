@@ -10,7 +10,7 @@ import {AlertController} from '@ionic/angular';
   styleUrls: ['./sign-up.page.scss'],
 })
 export class SignUpPage implements OnInit {
-  private signUpForm;
+  public signUpForm;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router,
               private alertController: AlertController) {

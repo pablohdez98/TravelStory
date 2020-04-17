@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import {IonicModule, IonTabs} from '@ionic/angular';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { PortalPage } from './portal.page';
@@ -22,6 +22,7 @@ import {TripViewComponent} from './trip-view/trip-view.component';
     IonicSelectableModule,
     ReactiveFormsModule
   ],
+  providers: [IonTabs],
   declarations: [PortalPage, HomeComponent, NewTripComponent, ProfileComponent, TripViewComponent]
 })
 export class HomePageModule {}

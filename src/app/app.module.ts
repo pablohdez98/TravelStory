@@ -18,6 +18,7 @@ import {UserService} from './services/user/user.service';
 import {AngularFireAuthGuard} from '@angular/fire/auth-guard';
 
 import { HttpClientModule} from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +31,8 @@ import { HttpClientModule} from '@angular/common/http';
       AngularFirestoreModule, // firestore
       AngularFireAuthModule, // auth
       AngularFireStorageModule,
-      HttpClientModule
+      HttpClientModule,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,

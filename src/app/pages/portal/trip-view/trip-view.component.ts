@@ -13,12 +13,12 @@ import {Rate} from '../../../services/rate/rate';
   styleUrls: ['./trip-view.component.scss'],
 })
 export class TripViewComponent implements OnInit {
-  private trip: any;
+  public trip: any;
   private idTrip: string;
   private idUser: string;
-  private rates: Rate[];
-  private alreadyCommented: boolean;
-  private totalRate;
+  public rates: Rate[];
+  public alreadyCommented: boolean;
+  public totalRate;
 
   constructor(private userService: UserService, private tripService: TripService, private rateService: RateService,
               private ruta: ActivatedRoute, private modalController: ModalController) {

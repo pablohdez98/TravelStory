@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../../services/user/user.service';
 import {Router} from '@angular/router';
 import {AlertController} from '@ionic/angular';
@@ -10,7 +10,7 @@ import {AlertController} from '@ionic/angular';
   styleUrls: ['./logIn.page.scss'],
 })
 export class LogInPage implements OnInit {
-  private loginForm: any;
+  public loginForm: FormGroup;
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router,
               private alertController: AlertController) {}
 

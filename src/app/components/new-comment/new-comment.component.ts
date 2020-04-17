@@ -9,8 +9,8 @@ import {RateService} from '../../services/rate/rate.service';
   styleUrls: ['./new-comment.component.scss'],
 })
 export class NewCommentComponent implements OnInit {
-  idTrip;
-  private rateForm: any;
+  public idTrip;
+  public rateForm: any;
 
   constructor(private modalController: ModalController, private rateService: RateService,
               private formBuilder: FormBuilder) { }

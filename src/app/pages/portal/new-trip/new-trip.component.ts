@@ -10,9 +10,9 @@ import {TripService} from '../../../services/trip/trip.service';
   styleUrls: ['./new-trip.component.scss'],
 })
 export class NewTripComponent implements OnInit {
-  protected countries: any[];
+  public countries: any[];
   protected selectedFile: File = null;
-  protected tripForm: any;
+  public tripForm: any;
 
   constructor(private tripService: TripService, private formBuilder: FormBuilder, private router: Router,
               private alertController: AlertController) {

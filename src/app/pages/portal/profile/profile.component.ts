@@ -10,9 +10,9 @@ import {ToastController} from '@ionic/angular';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  private trips: any[];
+  public trips: any[];
   private images: any[];
-  private userName: string;
+  public userName: string;
   constructor(private userService: UserService, private tripService: TripService, private router: Router,
               private toastController: ToastController) {
     this.images = [];

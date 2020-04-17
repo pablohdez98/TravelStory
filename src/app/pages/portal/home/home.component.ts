@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {TripService} from '../../../services/trip/trip.service';
+import {IonTabs} from '@ionic/angular';
 
 @Component({
   selector: 'app-portal',
@@ -8,11 +9,11 @@ import {TripService} from '../../../services/trip/trip.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  protected trips: any[];
+  public trips: any[];
   private search: BehaviorSubject<string>;
-  private orderBy: string;
+  public orderBy: string;
 
-  constructor(private tripService: TripService) {
+  constructor(private tripService: TripService, private tabs: IonTabs) {
     this.orderBy = 'title';
     this.search = new BehaviorSubject<string>('');
   }
