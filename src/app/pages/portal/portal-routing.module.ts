@@ -11,7 +11,8 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent},
       { path: 'newTrip', component: NewTripComponent},
       { path: 'profile', component: ProfileComponent},
-      { path: 'trip/:id', component: TripViewComponent}
+      { path: 'trip/:id', component: TripViewComponent},
+      { path: '', redirectTo: 'home'}
     ]},
 ];
 
