@@ -1,7 +1,9 @@
 <ion-content scroll-y="false">
 
   <div class="login">
-    <h1 class="text-center">TravelStory</h1>
+    <div class="text-center mb-5">
+      <span class="title1">Travel</span><span class="title2">Story</span>
+    </div>
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm.value)">
       <ion-item class="border" lines="none">
         <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
@@ -16,9 +18,15 @@
         <ion-input type="text" formControlName="surname" placeholder="Apellidos"></ion-input>
       </ion-item>
       <div class="text-center mt-2">
-        <ion-button type="submit" color="success">Crear cuenta</ion-button>
+        <ion-button type="submit" expand="full" color="success">Crear cuenta</ion-button>
       </div>
     </form>
   </div>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="/logIn"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
 
 </ion-content>

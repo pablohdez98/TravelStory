@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {UsersService} from '../../service/users.service';
+import {UserService} from '../../services/user/user.service';
 import {Router} from '@angular/router';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +10,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./logIn.page.scss'],
 })
 export class LogInPage implements OnInit {
-  protected loginForm: any;
-  constructor(public formBuilder: FormBuilder, protected serv: UsersService, public router: Router ) {}
+  private loginForm: any;
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router,
+              private alertController: AlertController) {}
 
   ngOnInit() {
-    this.serv.getUser().subscribe(user => {
+    this.userService.getUser().subscribe(user => {
       if (user) {
         localStorage.setItem('user', JSON.stringify(user));
       }
@@ -23,11 +25,23 @@ export class LogInPage implements OnInit {
       password: '',
     });
   }
+
   async onSubmit(form) {
-    this.serv.logIn(form.email, form.password).then(
-        () => {
-          this.router.navigate(['portal/home']);
-        },
-        error => console.log(error));
+    this.userService.logIn(form.email, form.password).then(
+        () => { this.router.navigate(['portal/home']); },
+        async () => {
+          const alert = await this.alertController.create({
+            header: 'Falló el inicio de sesión',
+            message: 'El email o la contraseña son incorrectos',
+            buttons: ['Vale']
+          });
+          await alert.present();
+        }
+    );
+  }
+
+  async googleLogIn() {
+    await this.userService.googleLogIn();
+    await this.router.navigate(['portal/home']);
   }
 }
