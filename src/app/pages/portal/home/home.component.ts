@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UsersService} from '../../../service/users.service';
 import {BehaviorSubject} from 'rxjs';
-import {IonSelect} from '@ionic/angular';
+import {TripService} from '../../../services/trip/trip.service';
 
 @Component({
   selector: 'app-portal',
@@ -9,19 +8,18 @@ import {IonSelect} from '@ionic/angular';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  private trips: any[];
+  protected trips: any[];
   private search: BehaviorSubject<string>;
   private orderBy: string;
-  constructor(
-    private usersService: UsersService,
-  ) {
+
+  constructor(private tripService: TripService) {
     this.orderBy = 'title';
     this.search = new BehaviorSubject<string>('');
   }
 
   ngOnInit() {
     this.search.subscribe(querySearch => {
-      this.usersService.getTrips(true, 'title', querySearch ).subscribe(async trips => {
+      this.tripService.getTrips(true, 'title', querySearch ).subscribe(async trips => {
         this.trips = await Promise.all(trips);
       });
     });
