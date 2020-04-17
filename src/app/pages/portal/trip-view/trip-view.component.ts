@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {UsersService} from '../../../service/users.service';
+import {UserService} from '../../../services/user/user.service';
 import {ModalController} from '@ionic/angular';
 import {NewCommentComponent} from '../../../components/new-comment/new-comment.component';
+import {TripService} from '../../../services/trip/trip.service';
+import {RateService} from '../../../services/rate/rate.service';
+import {Rate} from '../../../services/rate/rate';
 
 @Component({
   selector: 'app-trip-view',
@@ -12,32 +15,33 @@ import {NewCommentComponent} from '../../../components/new-comment/new-comment.c
 export class TripViewComponent implements OnInit {
   private trip: any;
   private idTrip: string;
-  protected rates: any[];
+  private idUser: string;
+  private rates: Rate[];
   private alreadyCommented: boolean;
   private totalRate;
 
-  constructor(private ruta: ActivatedRoute, private serv: UsersService, private modalController: ModalController) {
+  constructor(private userService: UserService, private tripService: TripService, private rateService: RateService,
+              private ruta: ActivatedRoute, private modalController: ModalController) {
     this.trip = {};
   }
 
   ngOnInit() {
     this.ruta.params.subscribe(async (p) => {
       this.idTrip = p.id;
-      this.serv.getOneTrip(this.idTrip).subscribe(async resp => {
-        this.trip = await resp;
-      });
-      this.serv.getRates(p.id).subscribe(rates => {
-        let sum = 0;
-        this.rates = rates;
-        this.rates.forEach(rate => {
-          sum += Number(rate.rate);
-        });
-        this.totalRate = sum ? Math.round(sum / this.rates.length) : 'Sin valoraciones';
-      });
-      this.serv.getUser().subscribe(user => {
-        if (user) {
-          this.serv.checkComments(p.id, user.id).subscribe(data => {
-            this.alreadyCommented = data.length > 0;
+      this.tripService.getOneTrip(this.idTrip).subscribe(async resp => {
+        if (await resp) {
+          this.trip = await resp;
+          this.rateService.getRates(p.id).subscribe(rates => {
+            this.rates = rates;
+            this.totalRate = this.trip.meanRate ?  this.trip.meanRate : 'Sin valoraciones';
+          });
+          this.userService.getUser().subscribe(user => {
+            if (user) {
+              this.idUser = user.id;
+              this.rateService.checkComments(p.id, user.id).subscribe(data => {
+                this.alreadyCommented = data.length > 0;
+              });
+            }
           });
         }
       });

@@ -7,23 +7,27 @@
     <p class="text-right">{{trip.initDate}} {{trip.endDate}}</p>
     <p class="text-justify">{{trip.description}}</p>
     <div>
-      <img src='{{trip.image}}' height="100" width="100px" alt="">
-      <div class="float-right">
-        <p>Valoración: {{totalRate}}</p>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
-      </div>
+      <ion-row>
+        <img src='{{trip.image}}' height="100" width="100px" alt="">
+        <div class="m-auto h5">
+          <p>Valoración:</p>
+          <div *ngIf="totalRate>0; else noRates">
+            <ion-icon [color]="totalRate>=1 ? 'warning':'dark'" [name]="totalRate>=1 ? 'star':'star-outline'"></ion-icon>
+            <ion-icon [color]="totalRate>=2 ? 'warning':'dark'" [name]="totalRate>=2 ? 'star':'star-outline'"></ion-icon>
+            <ion-icon [color]="totalRate>=3 ? 'warning':'dark'" [name]="totalRate>=3 ? 'star':'star-outline'"></ion-icon>
+            <ion-icon [color]="totalRate>=4 ? 'warning':'dark'" [name]="totalRate>=4 ? 'star':'star-outline'"></ion-icon>
+            <ion-icon [color]="totalRate>=5 ? 'warning':'dark'" [name]="totalRate>=5 ? 'star':'star-outline'"></ion-icon>
+          </div>
+          <ng-template #noRates>
+            <p class="small">Sin valoraciones</p>
+          </ng-template>
+        </div>
+      </ion-row>
     </div>
     <p class="mt-3">
       <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-      Ver los 3 comentarios</p>
+      Comentarios:</p>
     <p *ngFor="let rate of rates">{{rate.comment}}</p>
-    <ion-button *ngIf="alreadyCommented; else newComment" color="danger">Eliminar comentario</ion-button>
-    <ng-template #newComment>
-      <ion-button (click)="presentModal()">Nuevo comentario</ion-button>
-    </ng-template>
+    <ion-button (click)="presentModal()" [disabled]="alreadyCommented">Nuevo comentario</ion-button>
   </div>
 </ion-content>
