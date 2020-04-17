@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['portal.page.scss'],
 })
 export class PortalPage {
-
+  public currentTab: string;
   constructor() {}
-
+  changeTab(tabs) {
+    this.currentTab = tabs.getSelected();
+  }
 }

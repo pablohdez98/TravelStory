@@ -1,15 +1,15 @@
-<ion-tabs>
+<ion-tabs #portalTabs (ionTabsDidChange)="changeTab(portalTabs)">
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="home">
-      <ion-icon color="dark"  name="home-outline"></ion-icon>
+      <ion-icon color="primary" [name]="currentTab === 'home' ? 'home' : 'home-outline'"></ion-icon>
     </ion-tab-button>
 
     <ion-tab-button tab="newTrip">
-      <ion-icon color="dark" name="location-outline"></ion-icon>
+      <ion-icon color="primary" [name]="currentTab === 'newTrip' ? 'location' : 'location-outline'"></ion-icon>
     </ion-tab-button>
 
     <ion-tab-button tab="profile">
-      <ion-icon color="dark" name="person-outline"></ion-icon>
+      <ion-icon color="primary" [name]="currentTab === 'profile' ? 'person' : 'person-outline'"></ion-icon>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
