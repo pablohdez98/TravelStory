@@ -45,6 +45,7 @@ export class NewTripComponent implements OnInit {
   async onSubmit(form) {
     if (this.tripForm.status === 'VALID') {
       await this.tripService.uploadTrip(form, this.selectedFile);
+      this.tripForm.reset();
       await this.router.navigate(['portal/profile']);
     } else {
       const alert = await this.alertController.create({
