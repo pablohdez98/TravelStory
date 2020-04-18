@@ -15,7 +15,7 @@ export class LogInPage implements OnInit {
               private alertController: AlertController) {}
 
   ngOnInit() {
-    this.userService.getUser().subscribe(user => {
+    this.userService.getCurrentUser().subscribe(user => {
       if (user) {
         localStorage.setItem('user', JSON.stringify(user));
       }

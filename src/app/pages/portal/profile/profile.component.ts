@@ -11,15 +11,13 @@ import {ToastController} from '@ionic/angular';
 })
 export class ProfileComponent implements OnInit {
   public trips: any[];
-  private images: any[];
   public userName: string;
   constructor(private userService: UserService, private tripService: TripService, private router: Router,
               private toastController: ToastController) {
-    this.images = [];
   }
 
   ngOnInit() {
-    this.userService.getUser().subscribe( user => {
+    this.userService.getCurrentUser().subscribe( user => {
       if (user) {
         this.userName = user.name;
         this.tripService.getTrips(false, 'idUser', user.id, '==').subscribe(async userTrips => {
