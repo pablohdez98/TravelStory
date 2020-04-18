@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map, switchMap, take} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user';
@@ -31,8 +31,11 @@ export class UserService {
     );
   }
 
-  getUser(): Observable<User> {
+  getCurrentUser(): Observable<User> {
     return this.user;
+  }
+  getUserById(userId): Observable<User> {
+    return this.afs.collection('users').doc<User>(userId).valueChanges();
   }
 
   signUp(form): Promise<any> {

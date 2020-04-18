@@ -6,6 +6,7 @@ import {NewCommentComponent} from '../../../components/new-comment/new-comment.c
 import {TripService} from '../../../services/trip/trip.service';
 import {RateService} from '../../../services/rate/rate.service';
 import {Rate} from '../../../services/rate/rate';
+import {Trip} from '../../../services/trip/trip';
 
 @Component({
   selector: 'app-trip-view',
@@ -13,16 +14,14 @@ import {Rate} from '../../../services/rate/rate';
   styleUrls: ['./trip-view.component.scss'],
 })
 export class TripViewComponent implements OnInit {
-  public trip: any;
+  public trip: Trip;
   private idTrip: string;
-  private idUser: string;
   public rates: Rate[];
   public alreadyCommented: boolean;
   public totalRate;
 
   constructor(private userService: UserService, private tripService: TripService, private rateService: RateService,
               private ruta: ActivatedRoute, private modalController: ModalController) {
-    this.trip = {};
   }
 
   ngOnInit() {
@@ -31,13 +30,18 @@ export class TripViewComponent implements OnInit {
       this.tripService.getOneTrip(this.idTrip).subscribe(async resp => {
         if (await resp) {
           this.trip = await resp;
+          this.userService.getUserById(this.trip.idUser).subscribe(user => this.trip.userName = user.name);
           this.rateService.getRates(p.id).subscribe(rates => {
             this.rates = rates;
             this.totalRate = this.trip.meanRate ?  this.trip.meanRate : 'Sin valoraciones';
+            rates.forEach((rate, i) => {
+              this.userService.getUserById(rate.idUser).subscribe(user => {
+                this.rates[i].userName = user.name;
+              });
+            });
           });
-          this.userService.getUser().subscribe(user => {
+          this.userService.getCurrentUser().subscribe(user => {
             if (user) {
-              this.idUser = user.id;
               this.rateService.checkComments(p.id, user.id).subscribe(data => {
                 this.alreadyCommented = data.length > 0;
               });

@@ -8,4 +8,5 @@ export interface Trip {
   initDate: string;
   meanRate: number;
   title: string;
+  userName?: string;
 }
