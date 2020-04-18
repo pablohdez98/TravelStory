@@ -12,12 +12,12 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <img src='{{trip.image}}' height="150px" width="343px" alt="">
+    <img src='{{trip.imageUrl}}' height="150px" width="343px" alt="">
     <p class="text-right">Del {{trip.initDate}} al {{trip.endDate}}</p>
     <p class="text-justify">{{trip.description}}</p>
     <div>
       <ion-row>
-        <img src='{{trip.image}}' height="100" width="100px" alt="">
+        <img src='{{trip.imageUrl}}' height="100" width="100px" alt="">
         <div class="m-auto h5">
           <p>Valoración:</p>
           <div *ngIf="totalRate>0; else noRates">
@@ -45,11 +45,11 @@
             </ion-col>
             <ion-col offset="2" size="4">
               <div>
-              <ion-icon [color]="totalRate>=1 ? 'warning':'dark'" [name]="rate.ratePoints>=1 ? 'star':'star-outline'"></ion-icon>
-              <ion-icon [color]="totalRate>=2 ? 'warning':'dark'" [name]="rate.ratePoints>=2 ? 'star':'star-outline'"></ion-icon>
-              <ion-icon [color]="totalRate>=3 ? 'warning':'dark'" [name]="rate.ratePoints>=3 ? 'star':'star-outline'"></ion-icon>
-              <ion-icon [color]="totalRate>=4 ? 'warning':'dark'" [name]="rate.ratePoints>=4 ? 'star':'star-outline'"></ion-icon>
-              <ion-icon [color]="totalRate>=5 ? 'warning':'dark'" [name]="rate.ratePoints>=5 ? 'star':'star-outline'"></ion-icon>
+              <ion-icon [color]="rate.ratePoints>=1 ? 'warning':'dark'" [name]="rate.ratePoints>=1 ? 'star':'star-outline'"></ion-icon>
+              <ion-icon [color]="rate.ratePoints>=2 ? 'warning':'dark'" [name]="rate.ratePoints>=2 ? 'star':'star-outline'"></ion-icon>
+              <ion-icon [color]="rate.ratePoints>=3 ? 'warning':'dark'" [name]="rate.ratePoints>=3 ? 'star':'star-outline'"></ion-icon>
+              <ion-icon [color]="rate.ratePoints>=4 ? 'warning':'dark'" [name]="rate.ratePoints>=4 ? 'star':'star-outline'"></ion-icon>
+              <ion-icon [color]="rate.ratePoints>=5 ? 'warning':'dark'" [name]="rate.ratePoints>=5 ? 'star':'star-outline'"></ion-icon>
             </div>
             </ion-col>
           </ion-row>

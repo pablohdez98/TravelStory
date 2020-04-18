@@ -17,10 +17,12 @@ export class RateService {
 
   async createRate(form): Promise<any> {
     const idUser = JSON.parse(localStorage.getItem('user')).id;
-    const trip = await this.afs.collection('trips').doc<any>(form.idTrip).valueChanges().pipe(
+    const trip = await this.afs.collection('trips').doc<Trip>(form.idTrip).valueChanges().pipe(
+      take(1)).toPromise();
+    const rates = await this.afs.collection('trips').doc(form.idTrip).collection<Rate>('rates').valueChanges().pipe(
       take(1)).toPromise();
     await this.afs.collection('trips').doc<Trip>(form.idTrip).update({
-      meanRate: trip.meanRate + Number(form.rate),
+      meanRate: (trip.meanRate * rates.length + Number(form.rate)) / (rates.length + 1),
     });
     return this.afs.collection('trips').doc(form.idTrip).collection<Rate>('rates').add( {
       idUser,
