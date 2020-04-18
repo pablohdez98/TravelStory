@@ -19,7 +19,7 @@
     <ion-row>
       <ion-col class="ion-text-center" size="4" *ngFor="let trip of trips; let i = index" [routerLink]="['../trip/',trip.id]">
         <div class="div-img">
-          <img class="imagen" src="{{trip.image}}" alt="">
+          <img class="imagen" src="{{trip.imageUrl}}" alt="">
         </div>
         <span>{{trip.title}}</span>
         <br>

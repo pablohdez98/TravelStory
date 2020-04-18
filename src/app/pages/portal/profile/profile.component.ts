@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user/user.service';
 import {Router} from '@angular/router';
 import {TripService} from '../../../services/trip/trip.service';
 import {ToastController} from '@ionic/angular';
+import {Trip} from '../../../services/trip/trip';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import {ToastController} from '@ionic/angular';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  public trips: any[];
+  public trips: Trip[];
   public userName: string;
   constructor(private userService: UserService, private tripService: TripService, private router: Router,
               private toastController: ToastController) {
@@ -27,8 +28,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  async deleteTrip(idTrip) {
-    await this.tripService.deleteTrip(idTrip);
+  async deleteTrip(trip) {
+    await this.tripService.deleteTrip(trip);
     const toast = await this.toastController.create({
       message: 'Viaje eliminado',
       color: 'dark',

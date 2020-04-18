@@ -33,8 +33,9 @@ export class TripService {
     });
   }
 
-  async deleteTrip(idTrip) {
-    await this.afs.collection('trips').doc(idTrip).delete();
+  async deleteTrip(trip) {
+    await this.afs.collection('trips').doc(trip.id).delete();
+    await this.afSt.ref(trip.image).delete();
   }
 
   getTrips(startWith, fieldPath = null, value = null, opStr = null): Observable<Promise<Trip>[]> {
@@ -52,7 +53,7 @@ export class TripService {
     return search.pipe(
       map(actions => actions.map(async a => {
         const data = a.payload.doc.data();
-        data.image = await this.getImage(data.image);
+        data.imageUrl = await this.getImage(data.image);
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
@@ -67,7 +68,7 @@ export class TripService {
     return this.afs.collection<Trip>('trips').doc<Trip>(idTrip).valueChanges().pipe(
       map(async data => {
         if (data) {
-          data.image = await this.getImage(data.image);
+          data.imageUrl = await this.getImage(data.image);
         }
         return data;
       })

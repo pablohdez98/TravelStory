@@ -2,11 +2,11 @@
 <ion-content>
   <h1 class="ion-margin">{{userName}}</h1>
   <ion-card *ngFor="let trip of trips; let i = index">
-    <img src='{{trip.image}}' height="150px" width="100%" alt="" [routerLink]="['../trip/',trip.id]">
+    <img src='{{trip.imageUrl}}' height="150px" width="100%" alt="" [routerLink]="['../trip/',trip.id]">
     <ion-card-header>
       <ion-card-title>
         <span>{{trip.title}}</span>
-        <ion-icon (click)="deleteTrip(trip.id)" class="float-right" name="trash-outline"></ion-icon>
+        <ion-icon (click)="deleteTrip(trip)" class="float-right" name="trash-outline"></ion-icon>
       </ion-card-title>
     </ion-card-header>
   </ion-card>
