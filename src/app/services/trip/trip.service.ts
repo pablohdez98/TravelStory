@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 import {Observable} from 'rxjs';
 import {map, take} from 'rxjs/operators';
 import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
@@ -23,8 +24,8 @@ export class TripService {
       idUser: userId,
       title: form.title,
       countries: selectedCountries,
-      initDate: moment(form.initDate).format('YYYY-MM-DD'),
-      endDate: moment(form.endDate).format('YYYY-MM-DD'),
+      initDate: moment(form.initDate).format('DD-MM-YYYY'),
+      endDate: moment(form.endDate).format('DD-MM-YYYY'),
       description: form.description,
       image: filePath,
       meanRate: 0,

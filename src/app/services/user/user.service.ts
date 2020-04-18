@@ -4,8 +4,8 @@ import {map, switchMap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user';
-import 'firebase/firestore';
-import {auth} from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +52,7 @@ export class UserService {
   }
 
   async googleLogIn() {
-    const data = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
+    const data = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     await this.afs.collection<User>('users').doc<User>(data.user.uid).set({
       name: data.user.displayName
     }, {merge: true});
